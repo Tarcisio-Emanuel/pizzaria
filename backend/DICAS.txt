@@ -1,1 +1,25 @@
-Tarcisio
+yarn init -y
+yarn add typescript -D
+yarn add express
+yarn add @types/express -D
+
+yarn add ts-node-dev -D
+yarn add express-async-errors
+
+yarn add cors
+yarn add @types/cors -D
+
+
+instalar postgresql NAVEGADOR
+https://www.postgresql.org/
+
+e tambem postgre
+https://www.paessler.com/postgresql-monitoring?utm_term=&utm_campaign=1911334751&utm_content=&utm_source=google&utm_medium=cpc&utm_adgroup=107846412433&utm_device=c&gad_source=1&gclid=Cj0KCQiA_qG5BhDTARIsAA0UHSLW-pfEGn5znmEbad2lMzyz8iXmS5Tb-d7BBf3-TE3wGnbZzH7TD6UaApejEALw_wcB
+
+
+yarn add prisma
+yarn add  @prisma/client
+npx prisma init
+
+
+criar uma migração >>> yarn prisma migrate dev
