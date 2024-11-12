@@ -9,6 +9,7 @@ yarn add express-async-errors
 yarn add cors
 yarn add @types/cors -D
 
+yarn add dotenv
 
 instalar postgresql NAVEGADOR
 https://www.postgresql.org/
@@ -23,3 +24,15 @@ npx prisma init
 
 
 criar uma migração >>> yarn prisma migrate dev
+
+
+
+criptografar as senhas
+yarn add bcryptjs
+yarn add @types/bcryptjs -D
+
+yarn add jsonwebtoken
+npm i --save-dev @types/jsonwebtoken
+
+vai no packge.json
+"strict": false,
