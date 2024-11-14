@@ -20,7 +20,10 @@ export function isAuthenticated(req: Request, res: Response, next: NextFunction)
             token,
             process.env.JWT_SECRET
 
-        ) as PayLoad
+        ) as PayLoad;
+
+        // recuperar o id do token e colocar dentro deuma variavel user_id dentro doRequest
+        req.user_id = sub
         return next();
 
     } catch (err) {
