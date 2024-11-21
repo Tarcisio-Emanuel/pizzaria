@@ -36,3 +36,8 @@ npm i --save-dev @types/jsonwebtoken
 
 vai no packge.json
 "strict": false,
+
+
+trbalhar com imagem
+yarn add multer
+yarn add @types/multer -D
