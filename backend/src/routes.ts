@@ -12,6 +12,12 @@ import { ListByCategoryController } from "./controllers/product/ListByCategoryCo
 import {ListCategoryController} from './controllers/category/ListCategoryController';
 import {CreateOrderController  } from "./controllers/order/CreateOrderController";
 import { RemoveOrderController } from './controllers/order/RemoveOrderController';
+import { AdditemController } from './controllers/order/AdditemController';
+import { RemoveItemController } from './controllers/order/RemoveItemController';
+import { SendOrderController } from './controllers/order/SendOrderController';
+import { ListOrderController } from './controllers/order/ListOrderController';
+import { DetailOrderController } from './controllers/order/DetailOrderController';
+import { FinishOrderController } from './controllers/order/FinishOrderController';
 
 
 import { CreateProductController } from "./controllers/product/CreateProductController";
@@ -44,6 +50,12 @@ router.get('/category/product', isAuthenticated, new ListByCategoryController().
 // rotas order
 router.post('/order', isAuthenticated, new CreateOrderController().handle)
 router.delete('/order', isAuthenticated, new RemoveOrderController().handle)
+router.post('/order/add', isAuthenticated, new AdditemController().handle)
+router.delete('/order/remove', isAuthenticated, new RemoveItemController().handle)
+router.put('/order/send', isAuthenticated, new SendOrderController().handle)
+router.get('/orders', isAuthenticated, new ListOrderController().handle)
+router.get('/orders/detail', isAuthenticated, new DetailOrderController().handle)
+router.put('/orders/finish', isAuthenticated, new FinishOrderController().handle)
 
 
 export { router }; 
