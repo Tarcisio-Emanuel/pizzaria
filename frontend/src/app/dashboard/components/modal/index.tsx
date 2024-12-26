@@ -1,43 +1,66 @@
-import styles from "./styles.module.scss";
-import { X } from "lucide-react";
+"use client"
 
-import { use } from "react";
-import { OrderContext } from "@/providers";
-
-
- export function Modalorder() {
-
-
-  // const {isOpen, setIsOpen} = use(OrderContext);xxxxxxxxxxxxxx
-
-    return(
-        <dialog className={styles.dialogContainer}>
-          
-          <section className={styles.dialogContent}>
-            <button className={styles.dialogBack}>
-               < X size={40} color="#ff3f4b"/>
-            </button>
-
-            <article className={styles.container}>
-
-                <h2> Detalhes do pedido </h2>
-                <span className={styles.table}> Mesa <b>36</b> </span>
+import styles from './styles.module.scss'
+import { X } from 'lucide-react'
+import { use } from 'react'
+import { OrderContext } from '@/providers'
+import { calculateTotalOrder } from '@/lib/calcula'
+// import Image from "next/image";
 
 
-                <section className={styles.item}>
-                    <span> 1 - <b>Pizza Catupiri</b></span>
-                    <span className={styles.description}>Pizza de frango com catupiri, borda recheada</span>
-                </section>
+export function Modalorder(){
+  const { onRequestClosr, order, finishOrder } = use(OrderContext);
 
-                 <button className={styles.buttonOrder}>
-                    Concluir Pedido
-                 </button>
- 
-            </article>
+  async function handleFinishOrder(){
+    await finishOrder(order[0].order.id)
+  }
 
-          </section>
+  return(
+    <dialog className={styles.dialogContainer}>
 
-        </dialog>
-    )
-    
+     <section className={styles.dialogContent}>
+        <button className={styles.dialogBack} onClick={onRequestClosr}>
+          <X size={40} color="#FF3f4b" />
+        </button>
+
+        <article className={styles.container}>
+          <h2>Detalhes do pedido</h2>
+
+          <span className={styles.table}>
+            Mesa <b>{order[0].order.table}</b>
+          </span>
+
+          {order[0].order?.name && (
+          <span className={styles.name}>
+            <b>{order[0].order.name}</b>
+          </span>
+          )}
+
+          {order.map( item => (
+          <section className={styles.item} key={item.id}>
+{/* ////////////////////////////////////////////////////////////////////////////////////////////////// */}
+            {/* <img src={item.product.banner} alt="imagem do produto" width={200} height={200} /> */}
+
+            <span>
+              Qtd: {item.amount} - <b>{item.product.name}</b> - R$ {parseFloat(item.product.price) * item.amount}
+            </span>
+            <span className={styles.description}>
+              {item.product.description}
+            </span>
+          </section>             
+          ))}  
+
+
+          <h3 className={styles.total}>Valor total: R$ {calculateTotalOrder(order)}</h3>    
+
+          <button className={styles.buttonOrder} onClick={handleFinishOrder}>
+            Concluir pedido
+          </button>
+
+        </article>
+
+     </section>
+
+    </dialog>
+  )
 }

@@ -41,3 +41,16 @@ vai no packge.json
 trbalhar com imagem
 yarn add multer
 yarn add @types/multer -D
+
+
+
+..........................
+..........DEPLOY..........
+..........................
+
+cloudinary imagens guardadas
+https://console.cloudinary.com/pm/c-9358a3fccc9b99d5d73b6cea6289ac/getting-started
+
+npm install cloudinary
+npm install express-fileupload
+npm install --save-dev @types/express-fileupload

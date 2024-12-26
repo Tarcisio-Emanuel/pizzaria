@@ -1,34 +1,45 @@
-import { Request, Response } from "express";
+import { Request, Response, request } from "express";
 import { CreateProductServer } from "../../services/product/CreateProductServer";
+import { UploadedFile } from "express-fileupload";
+import { v2 as cloudinary, UploadApiResponse } from "cloudinary";
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET,
+})
 
 class CreateProductController {
-
-    async handle(req: Request, res: Response) {
-
-        const { name, price, description, category_id } = req.body;
-
+    async handle(request: Request, response: Response) {
+        const { name, price, description, category_id } = request.body;
         const createProductServer = new CreateProductServer();
 
-        if (!req.file) {
-            throw new Error("error upload file!!!!!")
+        if (!request.files || Object.keys(request.files).length === 0) {
+            throw new Error("error upload file image!!!!!")
         } else {
-            const { originalname, filename: banner } = req.file;
-            // console.log(filename);
-            
+
+            const file: UploadedFile = request.files['file'];
+
+            const resultFile: UploadApiResponse = await new Promise((resolve, reject) => {
+                cloudinary.uploader.upload_stream({}, function (error, result) {
+                    if (error) {
+                        reject(error);
+                        return;
+                    }
+                    resolve(result)
+                }).end(file.data)
+            })
+
             const product = await createProductServer.execute({
                 name,
                 price,
                 description,
-                banner,
+                banner: resultFile.url,
                 category_id
             });
 
-            return res.json(product);
+            return response.json(product);
         }
-
     }
-
 }
-
 export { CreateProductController }
-// 5de49cb1-1d4a-4a97-8a82-9393b56427a2
